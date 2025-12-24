@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">درخواست خرید</string>
+
+    <string name="label_business_side">طرف تجاری</string>
+    <string name="label_commodity">کالاها</string>
+    <string name="label_submit_request">ثبت درخواست</string>
+    <string name="label_add_business_side">افزودن طرف تجاری</string>
+    <string name="label_add_product">افزودن کالا</string>
+    <string name="label_save">ذخیره</string>
+    <string name="label_code">کد: </string>
+    <string name="label_phone">تلفن: </string>
+    <string name="label_mobile">موبایل: </string>
+    <string name="label_address">آدرس: </string>
+    <string name="label_name">نام: </string>
+    <string name="label_person_type">نوع: </string>
+    <string name="label_logo">لوگو: </string>
+    <string name="label_real">حقیقی</string>
+    <string name="label_legal">حقوقی</string>
+    <string name="label_order_giver">سفارش‌دهنده</string>
+    <string name="label_order_receiver">سفارش‌گیرنده</string>
+    <string name="label_national_economic_code">کد ملی / اقتصادی: </string>
+
+    <!-- Messages -->
+    <string name="msg_no_data">آیتمی یافت نشد</string>
+
+    <!-- Errors -->
+    <string name="error_enter_code">کد الزامی است</string>
+    <string name="error_enter_name">نام الزامی است</string>
+    <string name="error_enter_phone">تلفن الزامی است</string>
+    <string name="error_enter_mobile">موبایل الزامی است</string>
+    <string name="error_enter_address">آدرس الزامی است</string>
+    <string name="error_enter_national_economic_cod">کد ملی / اقتصادی الزامی است</string>
+
+</resources>

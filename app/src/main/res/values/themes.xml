@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+<!-- Base application theme. -->
+<style name="Base.Theme.Request" parent="Theme.Material3.DayNight.NoActionBar">
+
+    <!-- Primary brand color. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <item name="colorPrimaryVariant">@color/white</item>
+    <item name="colorOnPrimarySurface">@color/black_292929</item>
+    <item name="colorAccent">@color/colorPrimary</item>
+
+    <!--  colors -->
+    <item name="colorShadow">@color/black_33000000</item>
+    <item name="colorPassive">@color/white</item>
+    <item name="colorWarning">@color/orange_FF5722</item>
+    <item name="colorRipple">@color/blue_200063F5</item>
+
+    <item name="colorSurface">@color/gray_a6a6a6</item>
+    <item name="colorLine">@color/gray_c7c7c7</item>
+    <item name="colorBasic">@color/white</item>
+    <item name="colorBackSurface">@color/gray_f4f4f4</item>
+    <item name="colorBox">@color/blue_200063F5</item>
+    <item name="colorRow">@color/gray_dark</item>
+
+</style>
+
+<style name="Theme.Request" parent="Base.Theme.Request" />
+
+</resources>
