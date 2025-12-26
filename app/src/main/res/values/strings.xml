@@ -19,6 +19,11 @@
     <string name="label_order_giver">سفارش‌دهنده</string>
     <string name="label_order_receiver">سفارش‌گیرنده</string>
     <string name="label_national_economic_code">کد ملی / اقتصادی: </string>
+    <string name="label_feature1">ویژگی1: </string>
+    <string name="label_feature2">ویژگی2: </string>
+    <string name="label_feature3">ویژگی3: </string>
+    <string name="label_feature4">ویژگی4: </string>
+    <string name="label_price">قیمت: </string>
 
     <!-- Messages -->
     <string name="msg_no_data">آیتمی یافت نشد</string>
@@ -30,5 +35,15 @@
     <string name="error_enter_mobile">موبایل الزامی است</string>
     <string name="error_enter_address">آدرس الزامی است</string>
     <string name="error_enter_national_economic_cod">کد ملی / اقتصادی الزامی است</string>
-
+    <string name="error_enter_feature1">ویژگی1 الزامی است</string>
+    <string name="error_enter_feature2">ویژگی2 الزامی است</string>
+    <string name="error_enter_feature3">ویژگی3 الزامی است</string>
+    <string name="error_enter_feature4">ویژگی4 الزامی است</string>
+    <string name="error_enter_price">قیمت الزامی است</string>
+    /*
+    git add .
+    git commit -m "add product"
+    git push -u origin master
+    git push
+    */
 </resources>

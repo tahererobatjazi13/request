@@ -22,7 +22,6 @@ import ir.kitgroup.request.core.utils.component.CustomSnackBar
 import ir.kitgroup.request.databinding.BottomSheetBusinessSideBinding
 import ir.kitgroup.request.databinding.FragmentBusinessSideBinding
 import ir.kitgroup.request.feature.business_side.ui.adapter.BusinessSideAdapter
-import ir.kitgroup.request.feature.product.ui.ProductViewModel
 
 @AndroidEntryPoint
 class BusinessSideFragment : Fragment() {
@@ -31,7 +30,7 @@ class BusinessSideFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var businessSideAdapter: BusinessSideAdapter
-    private val productViewModel: ProductViewModel by viewModels()
+    private val businessSideViewModel: BusinessSideViewModel by viewModels()
     private var logoUri: String? = null
     private var currentSelectedType = CustomerRole.ORDER_RECEIVER
 
@@ -110,16 +109,13 @@ class BusinessSideFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            // دکمه افزودن
             cvAddBusinessSide.setOnClickListener {
                 showSheet(null)
-
             }
         }
     }
 
     private fun updateListForSelectedTab(selectedType: CustomerRole) {
-
         filteredBusinessSideList =
             allBusinessSide.filter { it.customerRole == selectedType }
 
@@ -128,19 +124,16 @@ class BusinessSideFragment : Fragment() {
         binding.info.visibility =
             if (filteredBusinessSideList.isEmpty()) View.VISIBLE else View.GONE
         binding.info.message(getString(R.string.msg_no_data))
-
     }
 
     private fun initAdapter() {
-
         allBusinessSide = listOf()
         filteredBusinessSideList = allBusinessSide
 
         businessSideAdapter = BusinessSideAdapter(
             onEdit = { showSheet(it) },
-            onDelete = { productViewModel.delete(it) }
+            onDelete = { businessSideViewModel.delete(it) }
         )
-
     }
 
     private fun initRecyclerViews() {
@@ -152,7 +145,7 @@ class BusinessSideFragment : Fragment() {
     }
 
     private fun observeData() {
-        productViewModel.businessSideList.observe(viewLifecycleOwner) { lists ->
+        businessSideViewModel.businessSideList.observe(viewLifecycleOwner) { lists ->
             allBusinessSide = lists
             updateListForSelectedTab(currentSelectedType)
         }
@@ -171,7 +164,7 @@ class BusinessSideFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val b = BottomSheetBusinessSideBinding.inflate(layoutInflater)
         dialog.setContentView(b.root)
-        // ویرایش
+
         entity?.let {
             b.edtCode.setText(it.code)
             b.edtName.setText(it.name)
@@ -218,21 +211,15 @@ class BusinessSideFragment : Fragment() {
             )
 
             if (entity == null)
-                productViewModel.insert(newEntity)
+                businessSideViewModel.insert(newEntity)
             else
-                productViewModel.update(newEntity)
-
-
+                businessSideViewModel.update(newEntity)
 
             currentSelectedType = role
             updateTabUIByRole(role)
             updateListForSelectedTab(role)
-
             dialog.dismiss()
-
-
         }
-
         dialog.show()
     }
 
@@ -244,7 +231,6 @@ class BusinessSideFragment : Fragment() {
     private fun validateBusinessSide(b: BottomSheetBusinessSideBinding): Boolean {
 
         var isValid = true
-
 
         if (b.edtCode.text.isNullOrBlank()) {
             b.edtCode.error = getString(R.string.error_enter_code)

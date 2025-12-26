@@ -1,15 +1,15 @@
 package ir.kitgroup.request.feature.business_side.ui
 
 import androidx.lifecycle.*
-import ir.kitgroup.request.feature.product.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.kitgroup.request.core.database.entity.BusinessSideEntity
+import ir.kitgroup.request.feature.business_side.repository.BusinessSideRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BusinessSideViewModel @Inject constructor(
-    private val repository: ProductRepository,
+    private val repository: BusinessSideRepository,
 ) : ViewModel() {
 
     val businessSideList: LiveData<List<BusinessSideEntity>> = repository.getAll().asLiveData()

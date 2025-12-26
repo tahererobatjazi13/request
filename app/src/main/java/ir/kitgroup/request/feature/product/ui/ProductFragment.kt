@@ -5,23 +5,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ir.kitgroup.request.R
 import ir.kitgroup.request.core.database.entity.BusinessSideEntity
+import ir.kitgroup.request.core.database.entity.ProductEntity
 import ir.kitgroup.request.core.utils.CustomerRole
 import ir.kitgroup.request.core.utils.PersonType
 import ir.kitgroup.request.core.utils.SnackBarType
 import ir.kitgroup.request.core.utils.component.CustomSnackBar
 import ir.kitgroup.request.databinding.BottomSheetBusinessSideBinding
+import ir.kitgroup.request.databinding.BottomSheetProductBinding
 import ir.kitgroup.request.databinding.FragmentProductListBinding
 import ir.kitgroup.request.feature.product.ui.adapter.ProductAdapter
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProductFragment : Fragment() {
@@ -34,8 +39,8 @@ class ProductFragment : Fragment() {
     private var logoUri: String? = null
     private var currentSelectedType = CustomerRole.ORDER_RECEIVER
 
-    private lateinit var allBusinessSide: List<BusinessSideEntity>
-    private lateinit var filteredBusinessSideList: List<BusinessSideEntity>
+    private lateinit var allBusinessSide: List<ProductEntity>
+    private lateinit var filteredBusinessSideList: List<ProductEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,15 +67,14 @@ class ProductFragment : Fragment() {
             // دکمه افزودن
             cvAddProduct.setOnClickListener {
                 showSheet(null)
-
             }
         }
     }
 
     private fun updateListForSelectedTab(selectedType: CustomerRole) {
 
-        filteredBusinessSideList =
-            allBusinessSide.filter { it.customerRole == selectedType }
+        /*  filteredBusinessSideList =
+              allBusinessSide.filter { it.customerRole == selectedType }*/
 
         productAdapter.submitList(filteredBusinessSideList)
 
@@ -108,85 +112,76 @@ class ProductFragment : Fragment() {
     }
 
 
-
-    private fun showSheet(entity: BusinessSideEntity?) {
+    private fun showSheet(entity: ProductEntity?) {
 
         val dialog = BottomSheetDialog(requireContext())
-        val b = BottomSheetBusinessSideBinding.inflate(layoutInflater)
+        val b = BottomSheetProductBinding.inflate(layoutInflater)
         dialog.setContentView(b.root)
         // ویرایش
         entity?.let {
             b.edtCode.setText(it.code)
             b.edtName.setText(it.name)
-            b.edtAddress.setText(it.address)
-            b.edtPhone.setText(it.phone)
-            b.edtMobile.setText(it.mobile)
-            b.edtNationalCode.setText(it.nationalOrEconomicCode)
+            b.edtFeature1.setText(it.feature1)
+            b.edtFeature2.setText(it.feature2)
+            b.edtFeature3.setText(it.feature3)
+            b.edtFeature4.setText(it.feature4)
+            b.edtPrice.setText(it.feature4)
+        }
+        lifecycleScope.launch {
+            val features = productViewModel.getAllFeatures()
 
-            if (it.personType == PersonType.REAL) b.rbReal.isChecked = true
-            else b.rbLegal.isChecked = true
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                features
+            )
 
-            if (it.customerRole == CustomerRole.ORDER_GIVER) b.rbOrderGiver.isChecked = true
-            else b.rbOrderReceiver.isChecked = true
-
-            logoUri = it.logoPath
+            b.edtFeature1.setAdapter(adapter)
+            b.edtFeature2.setAdapter(adapter)
+            b.edtFeature3.setAdapter(adapter)
+            b.edtFeature4.setAdapter(adapter)
         }
 
-        b.imgLogo.setOnClickListener {
-            pickImageLauncher.launch("image/*")
-        }
 
         b.btnSave.setOnClickListener {
-            if (!validateBusinessSide(b)) return@setOnClickListener
+            if (!validate(b)) return@setOnClickListener
 
-            val personType =
-                if (b.rbReal.isChecked) PersonType.REAL else PersonType.LEGAL
-
-            val role =
-                if (b.rbOrderGiver.isChecked)
-                    CustomerRole.ORDER_GIVER
-                else CustomerRole.ORDER_RECEIVER
-
-            val newEntity = BusinessSideEntity(
+            val newEntity = ProductEntity(
                 id = entity?.id ?: 0,
                 code = b.edtCode.text.toString(),
                 name = b.edtName.text.toString(),
-                address = b.edtAddress.text.toString(),
-                phone = b.edtPhone.text.toString(),
-                mobile = b.edtMobile.text.toString(),
-                logoPath = logoUri,
-                nationalOrEconomicCode = b.edtNationalCode.text.toString(),
-                personType = personType,
-                customerRole = role
+                feature1 = b.edtFeature1.text.toString(),
+                feature2 = b.edtFeature2.text.toString(),
+                feature3 = b.edtFeature3.text.toString(),
+                feature4 = b.edtFeature4.text.toString(),
+                price = b.edtPrice.text.toString().toDoubleOrNull() ?: 0.0
             )
+            lifecycleScope.launch {
+                productViewModel.saveFeatureHistory(
+                    listOf(
+                        b.edtFeature1.text.toString(),
+                        b.edtFeature2.text.toString(),
+                        b.edtFeature3.text.toString(),
+                        b.edtFeature4.text.toString()
+                    )
+                )
+            }
 
             if (entity == null)
                 productViewModel.insert(newEntity)
             else
                 productViewModel.update(newEntity)
 
-
-
-            currentSelectedType = role
-            updateListForSelectedTab(role)
-
             dialog.dismiss()
-
-
         }
 
         dialog.show()
     }
 
-    private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {
-            logoUri = it?.toString()
-        }
 
-    private fun validateBusinessSide(b: BottomSheetBusinessSideBinding): Boolean {
+    private fun validate(b: BottomSheetProductBinding): Boolean {
 
         var isValid = true
-
 
         if (b.edtCode.text.isNullOrBlank()) {
             b.edtCode.error = getString(R.string.error_enter_code)
@@ -196,34 +191,29 @@ class ProductFragment : Fragment() {
             b.edtName.error = getString(R.string.error_enter_name)
             isValid = false
         }
-        if (b.edtMobile.text.isNullOrBlank()) {
-            b.edtMobile.error = getString(R.string.error_enter_mobile)
+        if (b.edtFeature1.text.isNullOrBlank()) {
+            b.edtFeature1.error = getString(R.string.error_enter_feature1)
             isValid = false
         }
-        if (b.edtPhone.text.isNullOrBlank()) {
-            b.edtPhone.error = getString(R.string.error_enter_phone)
+        if (b.edtFeature2.text.isNullOrBlank()) {
+            b.edtFeature2.error = getString(R.string.error_enter_feature2)
             isValid = false
         }
-        if (b.edtAddress.text.isNullOrBlank()) {
-            b.edtPhone.error = getString(R.string.error_enter_address)
+        if (b.edtFeature3.text.isNullOrBlank()) {
+            b.edtFeature3.error = getString(R.string.error_enter_feature3)
             isValid = false
         }
-        if (b.edtNationalCode.text.isNullOrBlank()) {
-            b.edtNationalCode.error = getString(R.string.error_enter_national_economic_cod)
+        if (b.edtFeature4.text.isNullOrBlank()) {
+            b.edtFeature4.error = getString(R.string.error_enter_feature4)
             isValid = false
         }
-
+        if (b.edtPrice.text.isNullOrBlank()) {
+            b.edtFeature4.error = getString(R.string.error_enter_price)
+            isValid = false
+        }
         return isValid
     }
 
-
-    private fun showBottomSheetError(message: String) {
-        CustomSnackBar.make(
-            requireActivity().findViewById(android.R.id.content),
-            message,
-            SnackBarType.Error.value
-        )?.show()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,16 +1,23 @@
 package ir.kitgroup.request.feature.product.repository
 
-import ir.kitgroup.request.core.database.dao.BusinessSideDao
-import ir.kitgroup.request.core.database.entity.BusinessSideEntity
+import ir.kitgroup.request.core.database.dao.ProductDao
+import ir.kitgroup.request.core.database.entity.ProductEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
 class ProductRepository @Inject constructor(
-    private val dao: BusinessSideDao
+    private val dao: ProductDao
 ) {
-    suspend fun insert(entity: BusinessSideEntity) = dao.insert(entity)
-    suspend fun update(entity: BusinessSideEntity) = dao.update(entity)
-    suspend fun delete(entity: BusinessSideEntity) = dao.delete(entity)
+    suspend fun insert(entity: ProductEntity) =
+        dao.insert(entity)
 
-    fun getAll() = dao.getAll()
+    suspend fun update(entity: ProductEntity) =
+        dao.update(entity)
+
+    suspend fun delete(entity: ProductEntity) =
+        dao.delete(entity)
+
+    fun getAll(): Flow<List<ProductEntity>> =
+        dao.getAll()
 }

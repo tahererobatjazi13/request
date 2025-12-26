@@ -102,68 +102,68 @@
                 android:layout_marginTop="@dimen/xx_small_size">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clPhone"
+                    android:id="@+id/clFeature1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="5"
-                    app:layout_constraintStart_toEndOf="@id/clMobile"
+                    app:layout_constraintStart_toEndOf="@id/clFeature2"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvTitlePhone"
+                        android:id="@+id/tvTitleFeature1"
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_phone"
+                        android:text="@string/label_feature1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvPhone"
+                        android:id="@+id/tvFeature1"
                         style="@style/SmallTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
                         android:textDirection="rtl"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tvTitlePhone"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTitleFeature1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clMobile"
+                    android:id="@+id/clFeature2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/clPhone"
+                    app:layout_constraintEnd_toStartOf="@id/clFeature1"
                     app:layout_constraintHorizontal_weight="5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvTitleMobile"
+                        android:id="@+id/tvTitleFeature2"
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_mobile"
+                        android:text="@string/label_feature2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvMobile"
+                        android:id="@+id/tvFeature2"
                         style="@style/SmallTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
                         android:textDirection="rtl"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tvTitleMobile"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTitleFeature2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,68 +177,68 @@
                 android:layout_marginTop="@dimen/xx_small_size">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clNationalOrEconomicCode"
+                    android:id="@+id/clFeature3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="5"
-                    app:layout_constraintStart_toEndOf="@id/clPersonType"
+                    app:layout_constraintStart_toEndOf="@id/clFeature4"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvTitleNationalOrEconomicCode"
+                        android:id="@+id/tvTitleFeature3"
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_national_economic_code"
+                        android:text="@string/label_feature3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvNationalOrEconomicCode"
+                        android:id="@+id/tvFeature3"
                         style="@style/SmallTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
                         android:textDirection="rtl"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tvTitleNationalOrEconomicCode"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTitleFeature3"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clPersonType"
+                    android:id="@+id/clFeature4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/clNationalOrEconomicCode"
+                    app:layout_constraintEnd_toStartOf="@id/clFeature3"
                     app:layout_constraintHorizontal_weight="5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvTitlePersonType"
+                        android:id="@+id/tvTitleFeature4"
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_person_type"
+                        android:text="@string/label_feature4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvPersonType"
+                        android:id="@+id/tvFeature4"
                         style="@style/SmallTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
                         android:textDirection="rtl"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tvTitlePersonType"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTitleFeature4"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,7 +256,7 @@
                     style="@style/SmallTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_address"
+                    android:text="@string/label_price"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -272,6 +272,18 @@
                     app:layout_constraintEnd_toStartOf="@+id/tvTitleAddress"
                     app:layout_constraintStart_toEndOf="@+id/ivDelete"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivHistory"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivDelete"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_history"
+                    app:tint="@color/colorPrimary" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivDelete"

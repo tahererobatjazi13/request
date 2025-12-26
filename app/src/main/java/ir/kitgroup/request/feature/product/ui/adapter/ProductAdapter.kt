@@ -5,44 +5,40 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ir.kitgroup.request.core.database.entity.BusinessSideEntity
-import ir.kitgroup.request.core.utils.PersonType
-import ir.kitgroup.request.databinding.ItemBusinessSideListBinding
-import ir.kitgroup.request.feature.business_side.ui.adapter.CustomerListDiffCallback
+import ir.kitgroup.request.core.database.entity.ProductEntity
+import ir.kitgroup.request.databinding.ItemProductListBinding
 
 class ProductAdapter(
-    private val onEdit: (BusinessSideEntity) -> Unit,
-    private val onDelete: (BusinessSideEntity) -> Unit
-) : ListAdapter<BusinessSideEntity, ProductAdapter.CustomerListViewHolder>(
-    CustomerListDiffCallback()
+    private val onEdit: (ProductEntity) -> Unit,
+    private val onDelete: (ProductEntity) -> Unit
+) : ListAdapter<ProductEntity, ProductAdapter.ProductListViewHolder>(
+    ProductDiffCallback()
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListViewHolder {
         val binding =
-            ItemBusinessSideListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CustomerListViewHolder(binding)
+            ItemProductListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ProductListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CustomerListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         val customer = getItem(position)
         holder.bind(customer)
     }
 
-    fun setData(data: List<BusinessSideEntity>) {
+    fun setData(data: List<ProductEntity>) {
         submitList(data)
     }
 
-    inner class CustomerListViewHolder(private val binding: ItemBusinessSideListBinding) :
+    inner class ProductListViewHolder(private val binding: ItemProductListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BusinessSideEntity) = with(binding) {
+        fun bind(item: ProductEntity) = with(binding) {
 
             tvCode.text = item.code
             tvName.text = item.name
-            tvPhone.text = item.phone
-            tvMobile.text = item.mobile
-            tvAddress.text = item.address
-            tvNationalOrEconomicCode.text = item.nationalOrEconomicCode
-            tvPersonType.text =if (item.personType == PersonType.REAL) "حقیقی" else "حقوقی"
-
+            tvFeature1.text = item.feature1
+            tvFeature2.text = item.feature2
+            tvFeature3.text = item.feature3
+            tvFeature4.text = item.feature4
             ivEdit.setOnClickListener { onEdit(item) }
 
             ivDelete.setOnClickListener {
@@ -53,17 +49,17 @@ class ProductAdapter(
     }
 }
 
-class CustomerListDiffCallback : DiffUtil.ItemCallback<BusinessSideEntity>() {
+class ProductDiffCallback : DiffUtil.ItemCallback<ProductEntity>() {
     override fun areItemsTheSame(
-        oldItem: BusinessSideEntity,
-        newItem: BusinessSideEntity
+        oldItem: ProductEntity,
+        newItem: ProductEntity
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: BusinessSideEntity,
-        newItem: BusinessSideEntity
+        oldItem: ProductEntity,
+        newItem: ProductEntity
     ): Boolean {
         return oldItem == newItem
     }

@@ -9,6 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ir.kitgroup.request.core.database.dao.BusinessSideDao
+import ir.kitgroup.request.core.database.dao.ProductDao
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +23,10 @@ object DatabaseModule {
             .build()
 
     @Provides
-    fun provideCustomerDao(db: AppDatabase): BusinessSideDao =
+    fun provideBusinessSideDao(db: AppDatabase): BusinessSideDao =
         db.businessSideDao()
+ @Provides
+    fun provideProductDao(db: AppDatabase): ProductDao =
+        db.productDao()
 
 }

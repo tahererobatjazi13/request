@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.kitgroup.request.core.database.entity.BusinessSideEntity
 import ir.kitgroup.request.core.utils.PersonType
 import ir.kitgroup.request.databinding.ItemBusinessSideListBinding
-import ir.kitgroup.request.feature.product.ui.adapter.CustomerListDiffCallback
 
 class BusinessSideAdapter(
     private val onEdit: (BusinessSideEntity) -> Unit,
     private val onDelete: (BusinessSideEntity) -> Unit
 ) : ListAdapter<BusinessSideEntity, BusinessSideAdapter.CustomerListViewHolder>(
-    CustomerListDiffCallback()
+    BusinessSideDiffCallback()
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerListViewHolder {
         val binding =
@@ -41,7 +40,7 @@ class BusinessSideAdapter(
             tvMobile.text = item.mobile
             tvAddress.text = item.address
             tvNationalOrEconomicCode.text = item.nationalOrEconomicCode
-            tvPersonType.text =if (item.personType == PersonType.REAL) "حقیقی" else "حقوقی"
+            tvPersonType.text = if (item.personType == PersonType.REAL) "حقیقی" else "حقوقی"
 
             ivEdit.setOnClickListener { onEdit(item) }
 
@@ -53,7 +52,7 @@ class BusinessSideAdapter(
     }
 }
 
-class CustomerListDiffCallback : DiffUtil.ItemCallback<BusinessSideEntity>() {
+class BusinessSideDiffCallback : DiffUtil.ItemCallback<BusinessSideEntity>() {
     override fun areItemsTheSame(
         oldItem: BusinessSideEntity,
         newItem: BusinessSideEntity
