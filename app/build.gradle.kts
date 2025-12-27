@@ -78,7 +78,7 @@ dependencies {
 
     // Date
     implementation(libs.jalali.calendar)
-
+    //implementation (com.github.samanzamani:PersianDate:1.7.1)
     // RxJava & RxAndroid
     implementation(libs.rxjava3)
     implementation(libs.rxandroid)

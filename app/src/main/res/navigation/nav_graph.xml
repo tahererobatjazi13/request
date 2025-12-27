@@ -22,11 +22,27 @@
         android:id="@+id/businessSideFragment"
         android:name="ir.kitgroup.request.feature.business_side.ui.BusinessSideFragment"
         android:label="BusinessSideFragment"
-        tools:layout="@layout/fragment_business_side"/>
+        tools:layout="@layout/fragment_business_side" />
     <fragment
         android:id="@+id/productFragment"
         android:name="ir.kitgroup.request.feature.product.ui.ProductFragment"
         android:label="ProductFragment"
-        tools:layout="@layout/fragment_product_list"/>
+        tools:layout="@layout/fragment_product_list">
+        <action
+            android:id="@+id/action_productFragment_to_changeLogFragment"
+            app:destination="@id/changeLogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeLogFragment"
+        android:name="ir.kitgroup.request.feature.product.ui.ChangeLogFragment"
+        android:label="ChangeLogFragment"
+        tools:layout="@layout/fragment_change_log">
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+        <argument
+            android:name="changeType"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

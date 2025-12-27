@@ -21,7 +21,9 @@
     <item name="colorBackSurface">@color/gray_f4f4f4</item>
     <item name="colorBox">@color/blue_200063F5</item>
     <item name="colorRow">@color/gray_dark</item>
-
+    <item name="colorBackBlue">@color/colorAccent</item>
+    <item name="colorBackGrayLight">@color/white</item>
+    <item name="colorBackGrayDark">@color/gray_dark</item>
 </style>
 
 <style name="Theme.Request" parent="Base.Theme.Request" />

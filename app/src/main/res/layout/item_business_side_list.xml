@@ -41,14 +41,14 @@
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_code"
+                        android:text="@string/label_code_item"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvCode"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -75,14 +75,14 @@
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_name"
+                        android:text="@string/label_name_item"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvName"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -116,14 +116,14 @@
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_phone"
+                        android:text="@string/label_phone_item"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvPhone"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -150,14 +150,14 @@
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_mobile"
+                        android:text="@string/label_mobile_item"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvMobile"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -191,14 +191,14 @@
                         style="@style/SmallTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_national_economic_code"
+                        android:text="@string/label_national_economic_code_item"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvNationalOrEconomicCode"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -232,7 +232,7 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tvPersonType"
-                        style="@style/SmallTextStyle"
+                        style="@style/SmallBoldTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/xxx_small_size"
@@ -256,7 +256,7 @@
                     style="@style/SmallTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_address"
+                    android:text="@string/label_address_item"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -15,10 +15,13 @@
     <attr name="colorSurfaceVariant" format="color" />
     <attr name="colorBox" format="color" />
     <attr name="colorRow" format="color" />
+    <attr name="colorBackBlue" format="color" />
     <attr name="colorBasic" format="color" />
     <attr name="colorLine" format="color" />
     <attr name="colorHeader" format="color" />
     <attr name="colorBackSurface" format="color" />
+    <attr name="colorBackGrayLight" format="color" />
+    <attr name="colorBackGrayDark" format="color" />
 
     <declare-styleable name="TryAgain">
         <attr name="message" format="string" />

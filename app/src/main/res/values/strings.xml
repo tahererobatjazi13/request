@@ -7,23 +7,46 @@
     <string name="label_add_business_side">افزودن طرف تجاری</string>
     <string name="label_add_product">افزودن کالا</string>
     <string name="label_save">ذخیره</string>
-    <string name="label_code">کد: </string>
-    <string name="label_phone">تلفن: </string>
-    <string name="label_mobile">موبایل: </string>
-    <string name="label_address">آدرس: </string>
-    <string name="label_name">نام: </string>
+    <string name="label_code">کد * : </string>
+    <string name="label_code_item">کد : </string>
+    <string name="label_phone">تلفن * : </string>
+    <string name="label_phone_item">تلفن : </string>
+    <string name="label_mobile">موبایل * : </string>
+    <string name="label_mobile_item">موبایل : </string>
+    <string name="label_address">آدرس * : </string>
+    <string name="label_address_item">آدرس : </string>
+    <string name="label_name_star">نام * : </string>
+    <string name="label_name_item">نام: </string>
+    <string name="label_name">نام</string>
     <string name="label_person_type">نوع: </string>
     <string name="label_logo">لوگو: </string>
     <string name="label_real">حقیقی</string>
     <string name="label_legal">حقوقی</string>
     <string name="label_order_giver">سفارش‌دهنده</string>
     <string name="label_order_receiver">سفارش‌گیرنده</string>
-    <string name="label_national_economic_code">کد ملی / اقتصادی: </string>
-    <string name="label_feature1">ویژگی1: </string>
-    <string name="label_feature2">ویژگی2: </string>
-    <string name="label_feature3">ویژگی3: </string>
-    <string name="label_feature4">ویژگی4: </string>
-    <string name="label_price">قیمت: </string>
+    <string name="label_national_economic_code">شناسه ملی/کداقتصادی * : </string>
+    <string name="label_national_economic_code_item">ش ملی/اقتصادی : </string>
+    <string name="label_feature1">ویژگی1 * : </string>
+    <string name="label_feature1_item">ویژگی1 : </string>
+    <string name="label_feature2">ویژگی2 * : </string>
+    <string name="label_feature2_item">ویژگی2 : </string>
+    <string name="label_feature3">ویژگی3 * : </string>
+    <string name="label_feature3_item">ویژگی3 : </string>
+    <string name="label_feature4">ویژگی * 4: </string>
+    <string name="label_feature4_item">ویژگی4: </string>
+    <string name="label_price">قیمت * : </string>
+    <string name="label_price_item">قیمت : </string>
+    <string name="label_unit">ضریب واحد * :</string>
+    <string name="label_unit_item">ضریب واحد :</string>
+    <string name="label_unit_name">نام واحد * :</string>
+    <string name="label_unit_name_item">نام واحد :</string>
+    <string name="label_dialog_delete">آیا از حذف آیتم اطمینان دارید؟</string>
+    <string name="label_close">بستن</string>
+    <string name="label_delete">حذف</string>
+    <string name="label_historys">تاریخچه قیمت ها</string>
+    <string name="label_old_price">قیمت قبلی\n(ریال)</string>
+    <string name="label_new_price">قیمت جدید\n(ریال)</string>
+    <string name="label_date">تاریخ</string>
 
     <!-- Messages -->
     <string name="msg_no_data">آیتمی یافت نشد</string>
@@ -39,10 +62,12 @@
     <string name="error_enter_feature2">ویژگی2 الزامی است</string>
     <string name="error_enter_feature3">ویژگی3 الزامی است</string>
     <string name="error_enter_feature4">ویژگی4 الزامی است</string>
+    <string name="error_enter_unit">نام واحد الزامی است</string>
+    <string name="error_enter_unit_name">ضریب واحد الزامی است</string>
     <string name="error_enter_price">قیمت الزامی است</string>
     /*
     git add .
-    git commit -m "add product"
+    git commit -m "edit product"
     git push -u origin master
     git push
     */

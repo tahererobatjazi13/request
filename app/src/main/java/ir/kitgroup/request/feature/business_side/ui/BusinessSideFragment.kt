@@ -17,11 +17,10 @@ import ir.kitgroup.request.R
 import ir.kitgroup.request.core.database.entity.BusinessSideEntity
 import ir.kitgroup.request.core.utils.CustomerRole
 import ir.kitgroup.request.core.utils.PersonType
-import ir.kitgroup.request.core.utils.SnackBarType
-import ir.kitgroup.request.core.utils.component.CustomSnackBar
 import ir.kitgroup.request.databinding.BottomSheetBusinessSideBinding
 import ir.kitgroup.request.databinding.FragmentBusinessSideBinding
 import ir.kitgroup.request.feature.business_side.ui.adapter.BusinessSideAdapter
+import ir.kitgroup.request.feature.product.dialog.ConfirmDeleteDialog
 
 @AndroidEntryPoint
 class BusinessSideFragment : Fragment() {
@@ -132,8 +131,14 @@ class BusinessSideFragment : Fragment() {
 
         businessSideAdapter = BusinessSideAdapter(
             onEdit = { showSheet(it) },
-            onDelete = { businessSideViewModel.delete(it) }
+            onDelete = { showConfirmDeleteDialog(it) },
         )
+    }
+
+    private fun showConfirmDeleteDialog(businessSide: BusinessSideEntity) {
+        ConfirmDeleteDialog {
+            businessSideViewModel.delete(businessSide)
+        }.show(childFragmentManager, "ConfirmDeleteDialog")
     }
 
     private fun initRecyclerViews() {
@@ -258,15 +263,6 @@ class BusinessSideFragment : Fragment() {
         }
 
         return isValid
-    }
-
-
-    private fun showBottomSheetError(message: String) {
-        CustomSnackBar.make(
-            requireActivity().findViewById(android.R.id.content),
-            message,
-            SnackBarType.Error.value
-        )?.show()
     }
 
     override fun onDestroyView() {

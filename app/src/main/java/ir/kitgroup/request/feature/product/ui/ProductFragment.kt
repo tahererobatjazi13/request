@@ -1,14 +1,15 @@
 package ir.kitgroup.request.feature.product.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,17 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ir.kitgroup.request.R
-import ir.kitgroup.request.core.database.entity.BusinessSideEntity
 import ir.kitgroup.request.core.database.entity.ProductEntity
-import ir.kitgroup.request.core.utils.CustomerRole
-import ir.kitgroup.request.core.utils.PersonType
-import ir.kitgroup.request.core.utils.SnackBarType
-import ir.kitgroup.request.core.utils.component.CustomSnackBar
-import ir.kitgroup.request.databinding.BottomSheetBusinessSideBinding
 import ir.kitgroup.request.databinding.BottomSheetProductBinding
 import ir.kitgroup.request.databinding.FragmentProductListBinding
+import ir.kitgroup.request.feature.product.dialog.ConfirmDeleteDialog
 import ir.kitgroup.request.feature.product.ui.adapter.ProductAdapter
 import kotlinx.coroutines.launch
+import ir.kitgroup.request.core.utils.extensions.show
+import ir.kitgroup.request.core.utils.extensions.gone
+import ir.kitgroup.request.core.utils.extensions.hide
+import ir.kitgroup.request.core.utils.extensions.toEnglishDigits
 
 @AndroidEntryPoint
 class ProductFragment : Fragment() {
@@ -36,11 +36,6 @@ class ProductFragment : Fragment() {
 
     private lateinit var productAdapter: ProductAdapter
     private val productViewModel: ProductViewModel by viewModels()
-    private var logoUri: String? = null
-    private var currentSelectedType = CustomerRole.ORDER_RECEIVER
-
-    private lateinit var allBusinessSide: List<ProductEntity>
-    private lateinit var filteredBusinessSideList: List<ProductEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,36 +59,32 @@ class ProductFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            // دکمه افزودن
             cvAddProduct.setOnClickListener {
                 showSheet(null)
             }
         }
     }
 
-    private fun updateListForSelectedTab(selectedType: CustomerRole) {
+    private fun initAdapter() {
 
-        /*  filteredBusinessSideList =
-              allBusinessSide.filter { it.customerRole == selectedType }*/
-
-        productAdapter.submitList(filteredBusinessSideList)
-
-        binding.info.visibility =
-            if (filteredBusinessSideList.isEmpty()) View.VISIBLE else View.GONE
-        binding.info.message(getString(R.string.msg_no_data))
+        productAdapter = ProductAdapter(
+            onChangeLog = { product ->
+                val action =
+                    ProductFragmentDirections.actionProductFragmentToChangeLogFragment(
+                        productId = product.id, 1
+                    )
+                findNavController().navigate(action)
+            },
+            onEdit = { showSheet(it) },
+            onDelete = { showConfirmDeleteDialog(it) },
+        )
 
     }
 
-    private fun initAdapter() {
-
-        allBusinessSide = listOf()
-        filteredBusinessSideList = allBusinessSide
-
-        productAdapter = ProductAdapter(
-            onEdit = { showSheet(it) },
-            onDelete = { productViewModel.delete(it) }
-        )
-
+    private fun showConfirmDeleteDialog(product: ProductEntity) {
+        ConfirmDeleteDialog {
+            productViewModel.delete(product)
+        }.show(childFragmentManager, "ConfirmDeleteDialog")
     }
 
     private fun initRecyclerViews() {
@@ -105,9 +96,16 @@ class ProductFragment : Fragment() {
     }
 
     private fun observeData() {
-        productViewModel.businessSideList.observe(viewLifecycleOwner) { materials ->
-            allBusinessSide = materials
-            updateListForSelectedTab(currentSelectedType)
+        productViewModel.productList.observe(viewLifecycleOwner) { products ->
+            if (products.isEmpty()) {
+                binding.info.show()
+                binding.info.message(requireContext().getString(R.string.msg_no_data))
+                binding.rvProduct.hide()
+            } else {
+                binding.info.gone()
+                binding.rvProduct.show()
+                productAdapter.setData(products)
+            }
         }
     }
 
@@ -117,6 +115,36 @@ class ProductFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val b = BottomSheetProductBinding.inflate(layoutInflater)
         dialog.setContentView(b.root)
+
+        b.edtPrice.addTextChangedListener(object : TextWatcher {
+            private var isEditing = false
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            @SuppressLint("DefaultLocale")
+            override fun afterTextChanged(s: Editable?) {
+                if (isEditing || s.isNullOrEmpty()) return
+
+                isEditing = true
+
+                val cleanString = s.toString().replace(",", "")
+
+                try {
+                    val parsed = cleanString.toDoubleOrNull()
+                    if (parsed != null) {
+                        val formatted = String.format("%,.0f", parsed)
+                        b.edtPrice.setText(formatted)
+                        b.edtPrice.setSelection(formatted.length)
+                    }
+                } catch (e: NumberFormatException) {
+                    e.printStackTrace()
+                }
+                isEditing = false
+            }
+        })
+
         // ویرایش
         entity?.let {
             b.edtCode.setText(it.code)
@@ -125,26 +153,70 @@ class ProductFragment : Fragment() {
             b.edtFeature2.setText(it.feature2)
             b.edtFeature3.setText(it.feature3)
             b.edtFeature4.setText(it.feature4)
-            b.edtPrice.setText(it.feature4)
+            b.edtPrice.setText(it.price.toString())
+            b.edtUnit.setText(it.unit.toString())
+            b.edtUnitName.setText(it.unitName)
         }
-        lifecycleScope.launch {
-            val features = productViewModel.getAllFeatures()
 
-            val adapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                features
+        lifecycleScope.launch {
+
+            val feature1List = productViewModel.getFeaturesByType(1)
+            val feature2List = productViewModel.getFeaturesByType(2)
+            val feature3List = productViewModel.getFeaturesByType(3)
+            val feature4List = productViewModel.getFeaturesByType(4)
+
+            b.edtFeature1.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    feature1List
+                )
             )
 
-            b.edtFeature1.setAdapter(adapter)
-            b.edtFeature2.setAdapter(adapter)
-            b.edtFeature3.setAdapter(adapter)
-            b.edtFeature4.setAdapter(adapter)
-        }
+            b.edtFeature2.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    feature2List
+                )
+            )
 
+            b.edtFeature3.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    feature3List
+                )
+            )
+
+            b.edtFeature4.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    feature4List
+                )
+            )
+            setupAutoCompleteShowOnClick(b.edtFeature1)
+            setupAutoCompleteShowOnClick(b.edtFeature2)
+            setupAutoCompleteShowOnClick(b.edtFeature3)
+            setupAutoCompleteShowOnClick(b.edtFeature4)
+
+        }
 
         b.btnSave.setOnClickListener {
             if (!validate(b)) return@setOnClickListener
+
+            val price = b.edtPrice.text.toString()
+                .replace(",", "")
+                .toEnglishDigits()
+
+            val priceValue = price.toDoubleOrNull() ?: -1.0
+
+            val unit = b.edtUnit.text.toString()
+                .replace(",", "")
+                .toEnglishDigits()
+
+            val unitValue = unit.toDoubleOrNull() ?: 1.0
 
             val newEntity = ProductEntity(
                 id = entity?.id ?: 0,
@@ -154,30 +226,41 @@ class ProductFragment : Fragment() {
                 feature2 = b.edtFeature2.text.toString(),
                 feature3 = b.edtFeature3.text.toString(),
                 feature4 = b.edtFeature4.text.toString(),
-                price = b.edtPrice.text.toString().toDoubleOrNull() ?: 0.0
+                price = priceValue,
+                unitName = b.edtUnitName.text.toString(),
+                unit = unitValue
             )
-            lifecycleScope.launch {
-                productViewModel.saveFeatureHistory(
-                    listOf(
-                        b.edtFeature1.text.toString(),
-                        b.edtFeature2.text.toString(),
-                        b.edtFeature3.text.toString(),
-                        b.edtFeature4.text.toString()
-                    )
+
+            productViewModel.saveFeatureHistory(1, b.edtFeature1.text.toString())
+            productViewModel.saveFeatureHistory(2, b.edtFeature2.text.toString())
+            productViewModel.saveFeatureHistory(3, b.edtFeature3.text.toString())
+            productViewModel.saveFeatureHistory(4, b.edtFeature4.text.toString())
+
+
+            if (entity == null) {
+                productViewModel.insert(newEntity)
+            } else {
+                productViewModel.updateProductWithPriceLog(
+                    oldProduct = entity,
+                    newProduct = newEntity
                 )
             }
 
-            if (entity == null)
-                productViewModel.insert(newEntity)
-            else
-                productViewModel.update(newEntity)
-
             dialog.dismiss()
         }
-
         dialog.show()
     }
+    fun setupAutoCompleteShowOnClick(editText: AutoCompleteTextView) {
+        editText.setOnClickListener {
+            editText.showDropDown()
+        }
 
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                editText.showDropDown()
+            }
+        }
+    }
 
     private fun validate(b: BottomSheetProductBinding): Boolean {
 
@@ -207,8 +290,16 @@ class ProductFragment : Fragment() {
             b.edtFeature4.error = getString(R.string.error_enter_feature4)
             isValid = false
         }
+        if (b.edtUnit.text.isNullOrBlank()) {
+            b.edtUnit.error = getString(R.string.error_enter_unit)
+            isValid = false
+        }
+        if (b.edtUnitName.text.isNullOrBlank()) {
+            b.edtUnitName.error = getString(R.string.error_enter_unit_name)
+            isValid = false
+        }
         if (b.edtPrice.text.isNullOrBlank()) {
-            b.edtFeature4.error = getString(R.string.error_enter_price)
+            b.edtPrice.error = getString(R.string.error_enter_price)
             isValid = false
         }
         return isValid

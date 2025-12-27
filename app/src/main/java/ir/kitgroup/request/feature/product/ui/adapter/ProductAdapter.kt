@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.kitgroup.request.core.database.entity.ProductEntity
 import ir.kitgroup.request.databinding.ItemProductListBinding
+import java.text.DecimalFormat
 
 class ProductAdapter(
+    private val onChangeLog: (ProductEntity) -> Unit = {},
     private val onEdit: (ProductEntity) -> Unit,
     private val onDelete: (ProductEntity) -> Unit
 ) : ListAdapter<ProductEntity, ProductAdapter.ProductListViewHolder>(
@@ -19,6 +21,8 @@ class ProductAdapter(
             ItemProductListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductListViewHolder(binding)
     }
+
+    private val formatter = DecimalFormat("#,###")
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         val customer = getItem(position)
@@ -39,12 +43,16 @@ class ProductAdapter(
             tvFeature2.text = item.feature2
             tvFeature3.text = item.feature3
             tvFeature4.text = item.feature4
+            tvUnit.text = formatter.format(item.unit)
+            tvUnitName.text = item.unitName
+            tvPrice.text = formatter.format(item.price) + " ریال"
+
+            ivHistory.setOnClickListener { onChangeLog(item) }
             ivEdit.setOnClickListener { onEdit(item) }
 
             ivDelete.setOnClickListener {
                 onDelete(item)
             }
-
         }
     }
 }

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- line header -->
+    <ir.kitgroup.request.core.utils.component.Header
+        android:id="@+id/hfChangeLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:drawableImgTwoHeader="@drawable/ic_back"
+        app:isShowImgTwoHeader="true"
+        app:isShowSeparatorHeader="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textTitleHeader="@string/label_historys" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/svMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBackSurface"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/medium_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/llList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dialog_table"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorLine" />
+
+                    <LinearLayout
+                        android:id="@+id/llHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="1dp"
+                        android:background="?attr/colorBackBlue"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/SmallBoldTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:padding="@dimen/small_size"
+                            android:text="@string/label_new_price" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorLine" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/SmallBoldTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.9"
+                            android:gravity="center"
+                            android:padding="@dimen/small_size"
+                            android:text="@string/label_old_price" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorLine" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/SmallBoldTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="@dimen/small_size"
+                            android:text="@string/label_date" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorLine" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/SmallBoldTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.2"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/small_size"
+                            android:text="@string/label_name" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/colorLine" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clTop">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvChangeLog"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="1dp"
+                            android:background="@color/white"
+                            android:nestedScrollingEnabled="false"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/item_change_log" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNoItem"
+                            style="@style/MediumTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/medium_size"
+                            android:gravity="center"
+                            android:text="@string/msg_no_data"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
