@@ -4,6 +4,7 @@
     <string name="label_business_side">طرف تجاری</string>
     <string name="label_commodity">کالاها</string>
     <string name="label_submit_request">ثبت درخواست</string>
+    <string name="label_requests">درخواست ها</string>
     <string name="label_add_business_side">افزودن طرف تجاری</string>
     <string name="label_add_product">افزودن کالا</string>
     <string name="label_save">ذخیره</string>
@@ -23,7 +24,9 @@
     <string name="label_real">حقیقی</string>
     <string name="label_legal">حقوقی</string>
     <string name="label_order_giver">سفارش‌دهنده</string>
+    <string name="label_order_giver_item">سفارش‌دهنده :</string>
     <string name="label_order_receiver">سفارش‌گیرنده</string>
+    <string name="label_order_receiver_item">سفارش‌گیرنده :</string>
     <string name="label_national_economic_code">شناسه ملی/کداقتصادی * : </string>
     <string name="label_national_economic_code_item">ش ملی/اقتصادی : </string>
     <string name="label_feature1">ویژگی1 * : </string>
@@ -47,6 +50,13 @@
     <string name="label_old_price">قیمت قبلی\n(ریال)</string>
     <string name="label_new_price">قیمت جدید\n(ریال)</string>
     <string name="label_date">تاریخ</string>
+    <string name="label_register_request">ثبت درخواست</string>
+    <string name="label_request_list">لیست درخواست ها</string>
+    <string name="label_maximum_capacity_unit1">حداکثر ظرفیت واحد1 * :  </string>
+    <string name="label_maximum_capacity_unit2">حداکثر ظرفیت واحد2 * :</string>
+    <string name="label_maximum_price">حداکثر مبلغ فاکتور * :</string>
+    <string name="label_description">توضیحات :</string>
+    <string name="label_continue">ادامه</string>
 
     <!-- Messages -->
     <string name="msg_no_data">آیتمی یافت نشد</string>
@@ -65,9 +75,12 @@
     <string name="error_enter_unit">نام واحد الزامی است</string>
     <string name="error_enter_unit_name">ضریب واحد الزامی است</string>
     <string name="error_enter_price">قیمت الزامی است</string>
+    <string name="error_enter_maximum_capacity_unit1">حداکثر ظرفیت واحد1 الزامی است</string>
+    <string name="error_enter_maximum_capacity_unit2">حداکثر ظرفیت واحد2 الزامی است</string>
+    <string name="error_enter_maximum_price">حداکثر مبلغ فاکتور الزامی است</string>
     /*
     git add .
-    git commit -m "edit product"
+    git commit -m "request header"
     git push -u origin master
     git push
     */

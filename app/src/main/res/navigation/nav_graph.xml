@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_requestFragment"
+            app:destination="@id/requestFragment" />
     </fragment>
     <fragment
         android:id="@+id/businessSideFragment"
@@ -44,5 +47,23 @@
             android:name="changeType"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/requestFragment"
+        android:name="ir.kitgroup.request.feature.request.ui.RequestListFragment"
+        android:label="RequestFragment"
+        tools:layout="@layout/fragment_request_list">
+        <action
+            android:id="@+id/action_requestFragment_to_requestRegisterFragment"
+            app:destination="@id/requestRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/requestRegisterFragment"
+        android:name="ir.kitgroup.request.feature.request.ui.RequestRegisterFragment"
+        android:label="RequestRegisterFragment"
+        tools:layout="@layout/fragment_request_register">
+    <argument
+        android:name="requestId"
+        app:argType="integer" />
+</fragment>
 
 </navigation>

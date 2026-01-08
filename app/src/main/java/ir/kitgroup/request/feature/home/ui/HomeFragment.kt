@@ -10,7 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ir.kitgroup.request.core.utils.extensions.getTodayPersianDate
 import dagger.hilt.android.AndroidEntryPoint
+import ir.kitgroup.request.core.utils.SnackBarType
+import ir.kitgroup.request.core.utils.component.CustomSnackBar
 import ir.kitgroup.request.databinding.FragmentHomeBinding
+import ir.kitgroup.request.feature.home.model.RequestValidationResult
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -55,20 +58,39 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(action)
                     }
 
-                    3 -> {
-                        /*val action =
-                          HomeFragmentDirections.actionHomeFragmentToHeaderOrderFragment(
-                               typeCustomer = false,
-                               typeOrder = OrderType.Add.value,
-                               customerId = 0,
-                               customerName = ""
-                           )
-                       findNavController().navigate(action)*/
-                    }
 
+                    3 -> {
+                        viewModel.checkRequestValidation { result ->
+                            when (result) {
+                                RequestValidationResult.Ok -> {
+                                    findNavController().navigate(
+                                        HomeFragmentDirections
+                                            .actionHomeFragmentToRequestFragment()
+                                    )
+                                }
+
+                                RequestValidationResult.NoProduct ->
+                                    showError("لطفاً ابتدا کالا ثبت کنید")
+
+                                RequestValidationResult.NoOrderGiver ->
+                                    showError("لطفاً سفارش‌دهنده ثبت کنید")
+
+                                RequestValidationResult.NoOrderReceiver ->
+                                    showError("لطفاً سفارش‌گیرنده ثبت کنید")
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private fun showError(message: String) {
+        CustomSnackBar.make(
+            binding.root,
+            message,
+            SnackBarType.Error.value
+        )?.show()
     }
 
     override fun onDestroyView() {

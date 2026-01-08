@@ -20,7 +20,7 @@ import ir.kitgroup.request.core.utils.PersonType
 import ir.kitgroup.request.databinding.BottomSheetBusinessSideBinding
 import ir.kitgroup.request.databinding.FragmentBusinessSideBinding
 import ir.kitgroup.request.feature.business_side.ui.adapter.BusinessSideAdapter
-import ir.kitgroup.request.feature.product.dialog.ConfirmDeleteDialog
+import ir.kitgroup.request.core.utils.component.ConfirmDeleteDialog
 
 @AndroidEntryPoint
 class BusinessSideFragment : Fragment() {

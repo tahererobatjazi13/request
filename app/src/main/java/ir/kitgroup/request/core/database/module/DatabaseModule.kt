@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import ir.kitgroup.request.core.database.dao.BusinessSideDao
 import ir.kitgroup.request.core.database.dao.FeatureHistoryDao
 import ir.kitgroup.request.core.database.dao.ProductDao
+import ir.kitgroup.request.core.database.dao.RequestDao
 import javax.inject.Singleton
 
 @Module
@@ -34,5 +35,9 @@ object DatabaseModule {
     @Provides
     fun provideFeatureHistoryDao(db: AppDatabase): FeatureHistoryDao =
         db.featureHistoryDao()
+
+    @Provides
+    fun provideRequestDao(db: AppDatabase): RequestDao =
+        db.requestDao()
 
 }

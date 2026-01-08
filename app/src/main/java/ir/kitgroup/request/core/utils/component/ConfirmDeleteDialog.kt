@@ -1,4 +1,4 @@
-package ir.kitgroup.request.feature.product.dialog
+package ir.kitgroup.request.core.utils.component
 
 import android.os.Bundle
 import android.view.LayoutInflater

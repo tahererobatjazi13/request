@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import ir.kitgroup.request.core.database.entity.BusinessSideEntity
+import ir.kitgroup.request.core.utils.CustomerRole
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,4 +22,7 @@ interface BusinessSideDao {
 
     @Query("SELECT * FROM customers ORDER BY id DESC")
     fun getAll(): Flow<List<BusinessSideEntity>>
+
+    @Query("SELECT COUNT(*) FROM customers WHERE customerRole = :role")
+    suspend fun getCountByRole(role: CustomerRole): Int
 }

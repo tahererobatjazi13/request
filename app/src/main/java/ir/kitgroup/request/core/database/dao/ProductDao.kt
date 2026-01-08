@@ -25,6 +25,9 @@ interface ProductDao {
     @Query("SELECT * FROM products ORDER BY id DESC")
     fun getAll(): Flow<List<ProductEntity>>
 
+    @Query("SELECT COUNT(*) FROM products")
+    suspend fun getCount(): Int
+
     @Insert
     suspend fun insertChangeLogs(log: ProductChangeLog)
 

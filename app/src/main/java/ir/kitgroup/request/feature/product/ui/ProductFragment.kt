@@ -18,9 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ir.kitgroup.request.R
 import ir.kitgroup.request.core.database.entity.ProductEntity
+import ir.kitgroup.request.core.utils.component.ConfirmDeleteDialog
 import ir.kitgroup.request.databinding.BottomSheetProductBinding
 import ir.kitgroup.request.databinding.FragmentProductListBinding
-import ir.kitgroup.request.feature.product.dialog.ConfirmDeleteDialog
 import ir.kitgroup.request.feature.product.ui.adapter.ProductAdapter
 import kotlinx.coroutines.launch
 import ir.kitgroup.request.core.utils.extensions.show
@@ -250,6 +250,7 @@ class ProductFragment : Fragment() {
         }
         dialog.show()
     }
+
     fun setupAutoCompleteShowOnClick(editText: AutoCompleteTextView) {
         editText.setOnClickListener {
             editText.showDropDown()
@@ -263,7 +264,6 @@ class ProductFragment : Fragment() {
     }
 
     private fun validate(b: BottomSheetProductBinding): Boolean {
-
         var isValid = true
 
         if (b.edtCode.text.isNullOrBlank()) {

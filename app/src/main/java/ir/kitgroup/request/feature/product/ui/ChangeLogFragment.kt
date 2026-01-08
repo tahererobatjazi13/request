@@ -12,8 +12,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ir.huri.jcal.JalaliCalendar
-import ir.kitgroup.request.R
-import ir.kitgroup.request.core.database.entity.ProductChangeLog
 import ir.kitgroup.request.core.utils.extensions.gone
 import ir.kitgroup.request.core.utils.extensions.hide
 import ir.kitgroup.request.core.utils.extensions.show
